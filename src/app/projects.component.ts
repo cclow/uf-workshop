@@ -1,24 +1,32 @@
-import { Component } from "@angular/core";
+import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
+import { Project, Id } from "./project.model";
+import { ProjectsDataService } from "./projects-data.service";
+import { Observable } from "rxjs";
 @Component({
   selector: 'demo-projects',
   template: `
-  <demo-project-card *ngFor="let project of projects" 
+  <demo-project-form (create)="createProject($event)"></demo-project-form>
+  <demo-project-card *ngFor="let project of projects$ | async" 
     [project]="project"
-    [selected]="project.id===selectedId"
-    (started)="log($event)"
-    (select)="selectedId=$event"></demo-project-card>
+    [selected]="project.id===(selectedId$ | async)"></demo-project-card>
 `,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProjectsComponent {
-  private projects = [
-    {id: 1, title: 'Project A', notes: 'This is a great project, the best EVER!'},
-    {id: 2, title: 'Project B', notes: 'This is a great project, the best EVER!'},
-    {id: 3, title: 'Project C', notes: 'This is a great project, the best EVER!'},
-  ];
+export class ProjectsComponent implements OnInit {
+  private projects$: Observable<Project[]>;
 
-  private selectedId: number;
+  private selectedId$: Observable<Id>;
 
-  private log(s: string) {
-    console.log('started', s);
+  constructor(private projectsDataService: ProjectsDataService) {
+    this.projects$ = this.projectsDataService.project$;
+    this.selectedId$ = this.projectsDataService.selectedId$;
   }
+
+  ngOnInit(): void {
+  }
+
+  createProject(values: any) {
+    this.projectsDataService.createProject(values.title, values.notes);
+  }
+
 }

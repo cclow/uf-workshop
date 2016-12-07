@@ -9,6 +9,15 @@ import { MaskDirective } from "./mask.directive";
 import { IfNotDirective } from "./if-not.directive";
 import { TitleCasePipe } from './title-case.pipe';
 import { LayoutComponent } from "./layout.component";
+import { ProjectFormComponent } from "./project-form.component";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { BooksComponent } from "./books.component";
+import { ProjectsDataService } from "./projects-data.service";
+import { environment } from "../environments/environment";
+import { BACKEND_URL, WS_BACKEND_URL } from "./tokens";
+import { ApiService } from "./api.service";
+import { StoreService } from "./store.service";
+
 
 @NgModule({
   declarations: [
@@ -18,13 +27,23 @@ import { LayoutComponent } from "./layout.component";
     MaskDirective,
     IfNotDirective,
     TitleCasePipe,
-    LayoutComponent
+    LayoutComponent,
+    ProjectFormComponent,
+    BooksComponent
   ],
   imports: [
     BrowserModule,
     MaterialModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    ProjectsDataService,
+    ApiService,
+    StoreService,
+    {provide: BACKEND_URL, useValue: environment.backendUrl},
+    {provide: WS_BACKEND_URL, useValue: environment.wsBackendUrl}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
