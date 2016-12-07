@@ -3,13 +3,10 @@ import { NgForm, FormGroup, FormControl, Validators, AbstractControl, FormBuilde
 import { ProjectsDataService } from "./projects-data.service";
 
 function validateMention(c: AbstractControl) {
-  let title = c.get('title').value.toLowerCase();
-  let notes = c.get('notes').value.toLowerCase();
-  if (notes.includes(title)) {
-    return null;
-  } else {
-    return { 'nomention': true }
-  }
+  let title = c.get('title').value;
+  let notes = c.get('notes').value;
+  return (!title || (notes && notes.toLowerCase().includes(title.toLowerCase())))
+    ? null : { 'nomention': true };
 }
 
 @Component({
@@ -24,7 +21,9 @@ function validateMention(c: AbstractControl) {
   </md-input>
   <md-textarea name="notes" placeholder="Notes" formControlName="notes"></md-textarea>
 </div>
-  <md-card-actions align="end"><button md-button type="submit">Create</button></md-card-actions>
+  <md-card-actions align="end">
+  <button md-button type="submit" [disabled]="form.invalid">Create</button>
+  </md-card-actions>
 </form>
 <md-card-content>{{form.get('project').errors | json}}</md-card-content>
 </md-card>
@@ -47,11 +46,13 @@ export class ProjectFormComponent {
 
   constructor(private fb: FormBuilder,
               private projectsDataService: ProjectsDataService) {
-    this.form = this.fb.group({
-      project: this.fb.group({
-        title: '',
-        notes: ''
-      }),
+    this.form = new FormGroup({
+      project: new FormGroup({
+        title: new FormControl('', [Validators.required, Validators.minLength(3)]),
+        notes: new FormControl()
+      }
+      , validateMention
+      ),
     });
     // this.form.valueChanges
     //   .subscribe(v => console.log("form", JSON.stringify(v)));
