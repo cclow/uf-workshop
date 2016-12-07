@@ -40,7 +40,7 @@ export class ApiService {
     return this.http.get(`${this.backendUrl}/${path}`, {headers: this.headers})
       .do(this.handleErrors)
       .map(this.extractJson)
-      .map(body => body.data);
+      .pluck('data');
   }
 
   post(path: string, body: any): Observable<any> {

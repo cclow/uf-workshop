@@ -5,14 +5,14 @@ import { Observable } from "rxjs";
 @Component({
   selector: 'demo-projects',
   template: `
-  <demo-project-form (create)="createProject($event)"></demo-project-form>
+  <demo-project-form></demo-project-form>
   <demo-project-card *ngFor="let project of projects$ | async" 
     [project]="project"
     [selected]="project.id===(selectedId$ | async)"></demo-project-card>
 `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProjectsComponent implements OnInit {
+export class ProjectsComponent {
   private projects$: Observable<Project[]>;
 
   private selectedId$: Observable<Id>;
@@ -21,12 +21,4 @@ export class ProjectsComponent implements OnInit {
     this.projects$ = this.projectsDataService.project$;
     this.selectedId$ = this.projectsDataService.selectedId$;
   }
-
-  ngOnInit(): void {
-  }
-
-  createProject(values: any) {
-    this.projectsDataService.createProject(values.title, values.notes);
-  }
-
 }

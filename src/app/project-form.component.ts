@@ -1,5 +1,6 @@
 import { Component, Output, EventEmitter } from "@angular/core";
 import { NgForm, FormGroup, FormControl, Validators, AbstractControl, FormBuilder } from "@angular/forms";
+import { ProjectsDataService } from "./projects-data.service";
 
 function validateMention(c: AbstractControl) {
   let title = c.get('title').value.toLowerCase();
@@ -42,10 +43,10 @@ color: red;
   ]
 })
 export class ProjectFormComponent {
-  @Output() create = new EventEmitter<any>();
   private form: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+              private projectsDataService: ProjectsDataService) {
     this.form = this.fb.group({
       project: this.fb.group({
         title: '',
@@ -58,6 +59,8 @@ export class ProjectFormComponent {
 
 
   onSubmit() {
-    this.create.emit(this.form.get('project').value);
+    let project = this.form.get('project').value;
+    this.projectsDataService.createProject(project.title, project.notes);
+    this.form.reset();
   }
 }

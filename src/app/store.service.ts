@@ -20,13 +20,13 @@ export class StoreService {
 
   addItem(prop: string, item: Item) {
     let state = this.store.getValue();
-    let collection = state['prop'] || [];
+    let collection = state[prop] || [];
     this.store.next(Object.assign({}, state, {[prop]: [...collection, item]}));
   }
 
   updateItem(prop: string, item: Item) {
     let state = this.store.getValue();
-    let collection = state['prop'] || [];
+    let collection = state[prop] || [];
     this.store.next(Object.assign({}, state, {
       [prop]: collection.map(member => {
         if (member.id == item.id) {
@@ -40,7 +40,7 @@ export class StoreService {
 
   removeItem(prop: string, id: Id) {
     let state = this.store.getValue();
-    let collection = state['prop'] || [];
+    let collection = state[prop] || [];
     this.store.next(Object.assign({}, state, collection.filter(item => item.id != id)));
   }
 }
