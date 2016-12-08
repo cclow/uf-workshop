@@ -34,8 +34,16 @@ export class ProjectsDataService {
     this.storeService.removeItem(PROJECTS_KEY, project.id);
   }
 
+  getProject$(id: Id) {
+    return this.projects$
+      .filter(projects => !!projects)
+      .map(projects => {
+        let filtered = projects.filter(p => p.id == id);
+        return filtered[0];
+      });
+  }
 
-  get project$(): Observable<Project[]> {
+  get projects$(): Observable<Project[]> {
     return this.storeService.getStore$(PROJECTS_KEY)
       .share();
   }

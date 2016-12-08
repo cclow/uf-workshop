@@ -9,10 +9,12 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { MaterialModule } from "@angular/material";
 import { SharedModule } from "../shared/shared.module";
 import { Routes, RouterModule } from "@angular/router";
+import { ProjectDetailsComponent } from "./project-details.component";
 
 const ROUTES: Routes = [
-  {path: '', component: ProjectsComponent},
-  {path: 'new', component: ProjectFormComponent}
+  {path: '', component: ProjectsComponent, pathMatch: 'full'},
+  {path: 'new', component: ProjectFormComponent},
+  {path: ':id', component: ProjectDetailsComponent}
 ];
 
 @NgModule({
@@ -27,7 +29,8 @@ const ROUTES: Routes = [
     ProjectsComponent,
     ProjectFormComponent,
     ProjectCardComponent,
-    ValidateMentionDirective
+    ValidateMentionDirective,
+    ProjectDetailsComponent
   ],
   exports: [
     ProjectsComponent

@@ -5,3 +5,11 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+md-input, md-textarea {
+  width: 100%;
+}
+
+md-sidenav-layout {
+  min-height: 500px;
+}

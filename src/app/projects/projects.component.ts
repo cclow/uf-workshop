@@ -18,7 +18,7 @@ export class ProjectsComponent {
   private selectedId$: Observable<Id>;
 
   constructor(private projectsDataService: ProjectsDataService) {
-    this.projects$ = this.projectsDataService.project$;
+    this.projects$ = this.projectsDataService.projects$;
     this.selectedId$ = this.projectsDataService.selectedId$;
   }
 }

@@ -3,6 +3,7 @@ import {
 } from '@angular/core';
 import { Project } from "./project.model";
 import { ProjectsDataService } from "./projects-data.service";
+import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'demo-project-card',
@@ -16,7 +17,10 @@ export class ProjectCardComponent
   @Input() project: Project;
   @Input() selected: boolean;
 
-  constructor(private projectsDataService: ProjectsDataService) { }
+  constructor(private projectsDataService: ProjectsDataService,
+              private router: Router, private route: ActivatedRoute) {
+  }
+
   // @Output() private started = new EventEmitter<string>();
 
   // ngOnInit(): void {
@@ -51,11 +55,13 @@ export class ProjectCardComponent
   //   console.log("destroy")
   // }
 
-  @HostListener('click') private selectProject() {
-    if (this.selected) {
-      this.projectsDataService.setSelectedId(null);
-    } else {
-      this.projectsDataService.setSelectedId(this.project.id);
-    }
+  @HostListener('click')
+  private selectProject() {
+    this.router.navigate([this.project.id], {relativeTo: this.route});
+    // if (this.selected) {
+    //   this.projectsDataService.setSelectedId(null);
+    // } else {
+    //   this.projectsDataService.setSelectedId(this.project.id);
+    // }
   }
 }
