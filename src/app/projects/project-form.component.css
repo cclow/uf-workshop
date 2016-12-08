@@ -1,0 +1,9 @@
+md-input, md-textarea {
+  width: 100%;
+}
+.ng-valid md-hint, .ng-untouched md-hint {
+  display: none;
+}
+md-hint {
+  color: red;
+}

@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Project, Id } from "./project.model";
-import { ApiService } from "./api.service";
-import { StoreService } from "./store.service";
+import { ApiService } from "../shared/api.service";
+import { StoreService } from "../shared/store.service";
 import { Observable } from "rxjs";
 // import { FeathersService } from "./feathers";
 

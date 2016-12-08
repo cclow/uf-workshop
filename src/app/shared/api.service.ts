@@ -1,5 +1,5 @@
 import { Injectable, Inject } from "@angular/core";
-import { BACKEND_URL, WS_BACKEND_URL } from './tokens';
+import { BACKEND_URL, WS_BACKEND_URL } from '../tokens';
 import { Http, Response, Headers } from "@angular/http";
 import { Observable } from "rxjs";
 import { FeathersService, io, feathers, socketio } from "./feathers";

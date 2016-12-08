@@ -3,44 +3,43 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { MaterialModule } from "@angular/material";
-import { ProjectsComponent } from "./projects.component";
-import { ProjectCardComponent } from './project-card.component';
-import { MaskDirective } from "./mask.directive";
-import { IfNotDirective } from "./if-not.directive";
-import { TitleCasePipe } from './title-case.pipe';
 import { LayoutComponent } from "./layout.component";
-import { ProjectFormComponent } from "./project-form.component";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { BooksComponent } from "./books.component";
-import { ProjectsDataService } from "./projects-data.service";
+import { BooksComponent } from "./books/books.component";
 import { environment } from "../environments/environment";
 import { BACKEND_URL, WS_BACKEND_URL } from "./tokens";
-import { ApiService } from "./api.service";
-import { StoreService } from "./store.service";
+import { HomeModule } from "./home/home.module";
+import { SharedModule } from "./shared/shared.module";
+import { BooksModule } from "./books/books.module";
+import { Routes, RouterModule } from "@angular/router";
+import { HomeComponent } from "./home/home.component";
+import { LoginComponent } from "./auth/login.component";
+import { AuthModule } from "./auth/auth.module";
+import { AuthGuard } from "./auth/auth.guard";
 
+const ROUTES: Routes = [
+  {path: '', component: HomeComponent,
+    pathMatch: 'full', canActivate: [AuthGuard]},
+  {path: 'login', component: LoginComponent},
+  {path: 'books', component: BooksComponent},
+  {path: 'projects', canActivateChild: [AuthGuard],
+    loadChildren: "app/projects/projects.module#ProjectsModule" },
+];
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProjectsComponent,
-    ProjectCardComponent,
-    MaskDirective,
-    IfNotDirective,
-    TitleCasePipe,
     LayoutComponent,
-    ProjectFormComponent,
-    BooksComponent
   ],
   imports: [
     BrowserModule,
     MaterialModule.forRoot(),
-    FormsModule,
-    ReactiveFormsModule
+    HomeModule,
+    SharedModule,
+    BooksModule,
+    RouterModule.forRoot(ROUTES),
+    AuthModule
   ],
   providers: [
-    ProjectsDataService,
-    ApiService,
-    StoreService,
     {provide: BACKEND_URL, useValue: environment.backendUrl},
     {provide: WS_BACKEND_URL, useValue: environment.wsBackendUrl}
   ],

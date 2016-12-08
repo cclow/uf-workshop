@@ -1,0 +1,13 @@
+<md-sidenav-layout>
+  <ng-content></ng-content>
+  <md-sidenav mode="side" align="start" opened>
+    <md-nav-list>
+
+      <md-list-item routerLink="/"
+                    routerLinkActive="active"
+                    [routerLinkActiveOptions]="{exact: true}">Home</md-list-item>
+      <md-list-item routerLink="/projects" routerLinkActive="active">Projects</md-list-item>
+      <md-list-item routerLink="/books" routerLinkActive="active">Books</md-list-item>
+    </md-nav-list>
+  </md-sidenav>
+</md-sidenav-layout>

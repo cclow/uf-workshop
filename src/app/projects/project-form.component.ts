@@ -11,35 +11,8 @@ function validateMention(c: AbstractControl) {
 
 @Component({
   selector: 'demo-project-form',
-  template: `
-<md-card>
-<form novalidate [formGroup]="form" (submit)="onSubmit()">
-  <div formGroupName="project">
-  
-  <md-input name="title" placeholder="Title" formControlName="title">
-    <md-hint>Title must be at least 3 chars long</md-hint>
-  </md-input>
-  <md-textarea name="notes" placeholder="Notes" formControlName="notes"></md-textarea>
-</div>
-  <md-card-actions align="end">
-  <button md-button type="submit" [disabled]="form.invalid">Create</button>
-  </md-card-actions>
-</form>
-<md-card-content>{{form.get('project').errors | json}}</md-card-content>
-</md-card>
-`,
-  styles: [`
-md-input, md-textarea {
-  width: 100%;
-}
-.ng-valid md-hint, .ng-untouched md-hint {
-  display: none;
-}
-md-hint {
-color: red;
-}
-`
-  ]
+  templateUrl: 'project-form.component.html',
+  styleUrls: ['project-form.component.css']
 })
 export class ProjectFormComponent {
   private form: FormGroup;

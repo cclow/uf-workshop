@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
-import { Item, Id } from "./project.model";
+import { Item, Id } from "../projects/project.model";
 
 @Injectable()
 export class StoreService {

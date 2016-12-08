@@ -6,8 +6,8 @@ import { ProjectsDataService } from "./projects-data.service";
 
 @Component({
   selector: 'demo-project-card',
-  templateUrl: './project-card.component.html',
-  styleUrls: ['./project-card.component.css'],
+  templateUrl: 'project-card.component.html',
+  styleUrls: ['project-card.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProjectCardComponent
