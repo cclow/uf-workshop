@@ -2,7 +2,7 @@ import { Component, Output, EventEmitter } from "@angular/core";
 import { NgForm, FormGroup, FormControl, Validators, AbstractControl, FormBuilder } from "@angular/forms";
 import { ProjectsDataService } from "./projects-data.service";
 
-function validateMention(c: AbstractControl) {
+export function validateMention(c: AbstractControl) {
   let title = c.get('title').value;
   let notes = c.get('notes').value;
   return (!title || (notes && notes.toLowerCase().includes(title.toLowerCase())))

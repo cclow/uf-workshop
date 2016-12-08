@@ -1,7 +1,7 @@
 import { Directive } from "@angular/core";
 import { AbstractControl, NG_VALIDATORS } from "@angular/forms";
 
-function validateMention(c: AbstractControl) {
+export function validateMention(c: AbstractControl) {
   let title = c.get('title').value.toLowerCase();
   let notes = c.get('notes').value.toLowerCase();
   if (notes.includes(title)) {
